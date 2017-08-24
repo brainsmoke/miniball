@@ -4,5 +4,5 @@ Miniball
 
 Foldable PCB LED ball
 
-![miniball](pics/miniball.jpg)
+![ball](pics/ball.jpg)
 
