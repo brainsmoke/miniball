@@ -110,6 +110,11 @@ const uint8_t zaxis[30] PROGMEM = {
 192, 213, 238, 13, 50, 50, 32, 14, 249, 6, 23, 22, 1, 249, 235, 231, 235, 210, 199, 213, 217, 199, 186, 169, 171, 161, 129, 91, 229, 192
 };
 
+const uint8_t ring[20] PROGMEM = {
+	0*3+1, 29*3+1, 28*3+1, 3*3+1, 7*3+1, 9*3+1, 13*3+1, 15*3+1, 19*3+1, 21*3+1,
+	0*3+1, 29*3+1, 28*3+1, 3*3+1, 7*3+1, 9*3+1, 13*3+1, 15*3+1, 19*3+1, 21*3+1,
+};
+
 /*
 
 from math import cos, pi
@@ -142,21 +147,33 @@ void halt(void)
 
 void charging(void)
 {
-	static int8_t ch=0, led=0;
+	static int8_t start = 0, size = 0, c=0;
 	uint8_t i;
-	led++;
-	if ( (led & 0x1f) == 0 ) {
-		ch+=3;
-		if (ch == 3*30) {
-			ch = 0;
-		}
-	}
-	for (i=0; i<3*30; i+=3)
+
+	c+=64;
+	if (c==0)
+		size++;
+	if (size == 20)
 	{
-		frame[i] = 0;
-		frame[i+1] = (i<=ch)?(60+i) : 0;
-		frame[i+2] = 0;
+		size = 0;
+		start++;
 	}
+	if (start == 10)
+		start = 0;
+
+	for (i=0; i<3*30; i++)
+		frame[i] = 0;
+
+	for (i=0; i<size && i<10; i++)
+		frame[pgm_read_byte_near(ring+start+i)] = 255;
+
+	for (i=10; i<size; i++)
+		frame[pgm_read_byte_near(ring+start+i-10)] = 0;
+
+	if (size < 10)
+		frame[pgm_read_byte_near(ring+start+size)] = c;
+	else
+		frame[pgm_read_byte_near(ring+start+size-10)] = 255-c;
 }
 
 void next_frame(void)
