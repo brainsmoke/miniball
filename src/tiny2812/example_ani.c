@@ -24,7 +24,12 @@
  * (http://opensource.org/licenses/mit-license.html)
  */
 
+#define STAT_PIN (1)
+#define LIPO_LOW_INV_VCC (320)
+#define EXTERNAL_POWER_INV_VCC (253)
+
 #include <avr/pgmspace.h>
+#include <avr/sleep.h>
 #include <util/delay_basic.h>
 
 #include "tiny2812.h"
@@ -126,8 +131,48 @@ const uint8_t wave[256] PROGMEM =
 
 static int16_t r,g,b;
 
+void halt(void)
+{
+	TCCR1 = 0;
+	PORTB |= (1<<LED_POWER_MOSFET_PIN);
+	_delay_loop_2(MS_TIMEOUT); /* 1 ms */
+	sleep_mode();
+}
+
+
+void charging(void)
+{
+	static int8_t ch=0, led=0;
+	uint8_t i;
+	led++;
+	if ( (led & 0x1f) == 0 ) {
+		ch+=3;
+		if (ch == 3*30) {
+			ch = 0;
+		}
+	}
+	for (i=0; i<3*30; i+=3)
+	{
+		frame[i] = 0;
+		frame[i+1] = (i<=ch)?(60+i) : 0;
+		frame[i+2] = 0;
+	}
+}
+
 void next_frame(void)
 {
+	if (inv_vcc > LIPO_LOW_INV_VCC)
+	{
+		halt();
+		return;
+	}
+
+	if ( (inv_vcc < EXTERNAL_POWER_INV_VCC) && !( PINB & (1<<STAT_PIN) ) )
+	{
+		charging();
+		return;
+	}
+
 	uint8_t i, j, c;
 
 	j=0;
@@ -148,6 +193,7 @@ void main(void)
 	r=0,g=100,b=200;
 	PORTB &=~ (1<<LED_POWER_MOSFET_PIN);
 	DDRB  |=  (1<<LED_POWER_MOSFET_PIN);
+	PORTB |=  (1<<STAT_PIN); /* internal pull-up */
 	_delay_loop_2(MS_TIMEOUT); /* 1 ms, seems to prevent timer from not working sometimes... brownout(?, seems unlikely) time clock init(?)  */
 	init();
 	run();
