@@ -126,8 +126,8 @@ void display(uint8_t *buf, uint8_t size)
 		 *     uint8_t data = *buf++;
 		 *     g += data;                        ( *g points at low byte of 16 bit gamma map entry of index [data] )
 		 *     uint8_t rem = *remp;
-         *     data = *g;
-         *     g += 0x100;                       ( *g points at high byte of 16 bit gamma map entry of index [data] )
+		 *     data = *g;
+		 *     g += 0x100;                       ( *g points at high byte of 16 bit gamma map entry of index [data] )
 		 *     carry = overflows( rem += data );
 		 *     data = *g + (carry ? 1 : 0);
 		 *     *remp++ = rem;
