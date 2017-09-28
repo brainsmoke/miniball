@@ -24,13 +24,36 @@
  * (http://opensource.org/licenses/mit-license.html)
  */
 
-#define STAT_PIN (1)
-#define LIPO_LOW_INV_VCC (320)
-#define EXTERNAL_POWER_INV_VCC (253)
-
 #include <avr/pgmspace.h>
 #include <avr/sleep.h>
 #include <util/delay_basic.h>
+
+#define STAT_PIN (1)
+#define LIPO_LOW_INV_VCC (320)
+#define LIPO_HIGH_INV_VCC (272)
+#define EXTERNAL_POWER_INV_VCC (253)
+
+/*
+
+i_low = 320
+i_high = 272
+
+low = 1./i_low
+high = 1./i_high
+
+d = (high-low)/160.
+
+for i in range(i_high, i_low):
+    v = 1./i
+    print str(int( (v-low)/d))+", ",
+
+print
+
+*/
+
+const uint8_t power_state[LIPO_LOW_INV_VCC-LIPO_HIGH_INV_VCC] PROGMEM = {
+160,  156,  152,  148,  144,  140,  136,  133,  129,  125,  122,  118,  114,  111,  107,  104,  100,  97,  93,  90,  86,  83,  80,  76,  73,  70,  66,  63,  60,  57,  54,  50,  47,  44,  41,  38,  35,  32,  29,  26,  23,  20,  17,  14,  11,  8,  5,  2,
+};
 
 #include "tiny2812.h"
 
@@ -122,7 +145,7 @@ const uint8_t zaxis[30] PROGMEM = {
 
 const uint8_t ring[20] PROGMEM = {
 	0*3+1, 4*3+1, 6*3+1, 10*3+1, 12*3+1, 16*3+1, 18*3+1, 22*3+1, 24*3+1, 28*3+1,
-	30*3+1, 34*3+1, 36*3+1, 40*3+1, 42*3+1, 46*3+1, 48*3+1, 52*3+1, 54*3+1, 58*3+1,
+	0*3+1, 4*3+1, 6*3+1, 10*3+1, 12*3+1, 16*3+1, 18*3+1, 22*3+1, 24*3+1, 28*3+1,
 };
 
 /*
@@ -145,6 +168,7 @@ const uint8_t wave[256] PROGMEM =
 
 
 static int16_t r,g,b;
+static int8_t shown_power_state;
 
 void halt(void)
 {
@@ -186,17 +210,80 @@ void charging(void)
 		frame[pgm_read_byte_near(ring+start+size-10)] = 255-c;
 }
 
+void show_power_state(void)
+{
+	uint8_t i;
+	uint8_t p_state;
+
+	uint16_t ivcc = inv_vcc;
+
+	if (ivcc > LIPO_LOW_INV_VCC)
+		p_state = 0;
+	else if (ivcc <= LIPO_HIGH_INV_VCC)
+		p_state = 160;
+	else
+		p_state = pgm_read_byte_near(power_state+ivcc-LIPO_HIGH_INV_VCC);
+
+	for (i=0; i<3*30; i++)
+		frame[i] = 0;
+
+	for (i=0; i<3; i++)
+	{
+		if (p_state < 16)
+		{
+			frame[pgm_read_byte_near(ring+i)] = p_state*16;
+			return;
+		}
+		frame[pgm_read_byte_near(ring+i)] = 255;
+		p_state -= 16;
+	}
+
+	for (i=3; i<7; i++)
+	{
+		if (p_state < 16)
+		{
+			frame[pgm_read_byte_near(ring+i)-1] = p_state*10;
+			frame[pgm_read_byte_near(ring+i)] = p_state*10;
+			return;
+		}
+		frame[pgm_read_byte_near(ring+i)-1] = 160;
+		frame[pgm_read_byte_near(ring+i)] = 160;
+		p_state -= 16;
+	}
+
+
+	for (i=7; i<10; i++)
+	{
+		if (p_state < 16)
+		{
+			frame[pgm_read_byte_near(ring+i)-1] = p_state*16;
+			return;
+		}
+		frame[pgm_read_byte_near(ring+i)-1] = 255;
+		p_state -= 16;
+	}
+}
+
 void next_frame(void)
 {
 	if (inv_vcc > LIPO_LOW_INV_VCC)
 	{
 		halt();
+		shown_power_state = 0;
 		return;
 	}
 
-	if ( (inv_vcc < EXTERNAL_POWER_INV_VCC) && !( PINB & (1<<STAT_PIN) ) )
+	if ( (inv_vcc <= EXTERNAL_POWER_INV_VCC) && !( PINB & (1<<STAT_PIN) ) )
 	{
 		charging();
+		shown_power_state = 0;
+		return;
+	}
+
+	if ( (inv_vcc > EXTERNAL_POWER_INV_VCC) && shown_power_state < 30 )
+	{
+		show_power_state();
+		shown_power_state++;
 		return;
 	}
 
@@ -218,6 +305,7 @@ void next_frame(void)
 void main(void)
 {
 	r=0,g=100,b=200;
+	shown_power_state = 0;
 	PORTB &=~ (1<<LED_POWER_MOSFET_PIN);
 	DDRB  |=  (1<<LED_POWER_MOSFET_PIN);
 	PORTB |=  (1<<STAT_PIN); /* internal pull-up */
