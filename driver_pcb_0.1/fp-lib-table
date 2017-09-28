@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name soic8)(type KiCad)(uri "$(KIPRJMOD)/soic8.pretty")(options "")(descr ""))
+  (lib (name avr)(type KiCad)(uri "$(KIPRJMOD)/avr.pretty")(options "")(descr ""))
+)
