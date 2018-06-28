@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /storage/archive/hardware/miniball/driver_pcb_2.0/lipocharge.sch)
-    (date "Thu 28 Jun 2018 02:08:24 AM CEST")
+    (date "Thu 28 Jun 2018 10:55:53 AM CEST")
     (tool "Eeschema 4.0.5+dfsg1-4")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -451,10 +451,10 @@
         (pin (num 5) (name GND) (type power_in))
         (pin (num 6) (name EN) (type input)))))
   (libraries
-    (library (logical device)
-      (uri /usr/share/kicad/library/device.lib))
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
+    (library (logical device)
+      (uri /usr/share/kicad/library/device.lib))
     (library (logical mcp73831)
       (uri /storage/archive/hardware/miniball/driver_pcb_2.0/mcp73831.lib))
     (library (logical goodwatch21)
@@ -545,7 +545,7 @@
     (net (code 18) (name "Net-(R4-Pad1)")
       (node (ref R4) (pin 1))
       (node (ref U2) (pin 33)))
-    (net (code 19) (name /VCC)
+    (net (code 19) (name /3V3)
       (node (ref R2) (pin 1)))
     (net (code 20) (name /VBAT)
       (node (ref SW1) (pin 2))

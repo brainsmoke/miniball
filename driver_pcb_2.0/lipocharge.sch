@@ -1081,5 +1081,5 @@ F 3 "" H 950 6150 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text HLabel 5300 4950 0    60   Input ~ 0
-VCC
+3V3
 $EndSCHEMATC
