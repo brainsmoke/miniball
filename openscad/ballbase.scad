@@ -1,4 +1,4 @@
-use <eggshell.scad>
+use <eggshell25mm.scad>
 use <switch.scad>
 use <driver.scad>
 
@@ -28,7 +28,7 @@ difference()
 				cube( size = [30, 30, 10], center=true );
 				difference()
 				{
-					eggshell();
+					eggshell25mm();
 					translate ([0,12.5,0])
 						rotate([90,0,0])
 							cylinder(r = .5, h=6, $fn=20, center=true);

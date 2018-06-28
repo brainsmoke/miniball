@@ -11,15 +11,14 @@ module cutouts()
 	{
 		translate(SWITCH_POS)
 			switch_cutout();
-		translate (DRIVER_POS)
-			rotate([0,0,90])
-				driver_cutout(); 
+		//translate (DRIVER_POS)
+			//rotate([0,0,90])
+				//driver_cutout(); 
+                translate([0,0,-.1]) cylinder(r = 9, h=10, $fn=100);
 	}
 }
 
-difference()
-{
-	union()
+	difference()
 	{
 		translate([0,0,4])
 		{
@@ -35,19 +34,8 @@ difference()
 				}
 			}
 		}
-		cylinder(r = 9.1, h=1.2);
-		difference()
-		{    
-			translate (DRIVER_POS)
-				rotate([0,0,90])
-					driver_positive(.5); 
-			translate([0,0,4])
-				rotate([180,0,0])
-					eggshell20mm();
-		}
+		cutouts();
 	}
-	cutouts();
-}
 
 
 render();

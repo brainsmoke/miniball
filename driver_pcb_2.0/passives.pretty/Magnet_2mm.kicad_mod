@@ -1,0 +1,11 @@
+(module Magnet_2mm (layer F.Cu) (tedit 5AF419DA)
+  (descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
+  (tags "Through hole pin header THT 1x01 2.54mm single row")
+  (fp_text reference - (at -1.9 1.5) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value CONN_01X01 (at 0 2.39) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (pad 1 thru_hole circle (at 0 0) (size 2.8 2.8) (drill 2.2) (layers *.Cu *.Mask))
+)

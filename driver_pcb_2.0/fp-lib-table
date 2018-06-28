@@ -1,0 +1,9 @@
+(fp_lib_table
+  (lib (name soic8)(type KiCad)(uri "$(KIPRJMOD)/soic8.pretty")(options "")(descr ""))
+  (lib (name avr)(type KiCad)(uri "$(KIPRJMOD)/avr.pretty")(options "")(descr ""))
+  (lib (name goodwatch21)(type KiCad)(uri "$(KIPRJMOD)/goodwatch/goodwatch21.pretty")(options "")(descr ""))
+  (lib (name sot)(type KiCad)(uri "$(KIPRJMOD)/sot.pretty")(options "")(descr ""))
+  (lib (name passives)(type KiCad)(uri "$(KIPRJMOD)/passives.pretty")(options "")(descr ""))
+  (lib (name outline)(type KiCad)(uri "$(KIPRJMOD)/outline.pretty")(options "")(descr ""))
+  (lib (name rotunda)(type KiCad)(uri "$(KIPRJMOD)/rotunda.pretty")(options "")(descr ""))
+)

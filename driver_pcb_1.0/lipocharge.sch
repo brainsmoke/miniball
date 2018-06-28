@@ -100,23 +100,12 @@ F 3 "" H 6350 2600 50  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L CONN_01X02 P2
-U 1 1 5898F893
-P 1900 2650
-F 0 "P2" H 1900 2800 50  0000 C CNN
-F 1 "CHARGER" V 2000 2650 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02" H 1900 2650 50  0001 C CNN
-F 3 "" H 1900 2650 50  0000 C CNN
-	1    1900 2650
-	1    0    0    -1  
-$EndComp
-$Comp
 L CONN_01X02 P3
 U 1 1 5898F9DF
 P 5350 3150
 F 0 "P3" H 5350 3300 50  0000 C CNN
 F 1 "BATT" V 5450 3150 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02" H 5350 3150 50  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 5350 3150 50  0001 C CNN
 F 3 "" H 5350 3150 50  0000 C CNN
 	1    5350 3150
 	1    0    0    -1  
@@ -127,7 +116,7 @@ U 1 1 5898FABF
 P 8500 3200
 F 0 "P1" H 8500 3400 50  0000 C CNN
 F 1 "LEDBALL" V 8600 3200 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03" H 8500 3200 50  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 8500 3200 50  0001 C CNN
 F 3 "" H 8500 3200 50  0000 C CNN
 	1    8500 3200
 	1    0    0    -1  
@@ -311,28 +300,6 @@ F 3 "" H 8900 2600 50  0000 C CNN
 	1    8900 2600
 	-1   0    0    1   
 $EndComp
-$Comp
-L D D3
-U 1 1 589B77EE
-P 8900 3200
-F 0 "D3" H 8900 3300 50  0000 C CNN
-F 1 "D" H 8900 3100 50  0000 C CNN
-F 2 "Diodes_SMD:D_0603" H 8850 3400 50  0001 C CNN
-F 3 "" H 8900 3200 50  0000 C CNN
-	1    8900 3200
-	0    -1   -1   0   
-$EndComp
-$Comp
-L R R2
-U 1 1 589CE986
-P 4900 5300
-F 0 "R2" V 4980 5300 50  0000 C CNN
-F 1 "0" V 4900 5300 50  0000 C CNN
-F 2 "Resistors_SMD:R_0603" V 4650 5300 50  0001 C CNN
-F 3 "" H 4900 5300 50  0000 C CNN
-	1    4900 5300
-	0    1    1    0   
-$EndComp
 Text Label 3850 3500 0    60   ~ 0
 STAT
 Text Label 4500 5300 0    60   ~ 0
@@ -430,8 +397,6 @@ Wire Wire Line
 Wire Wire Line
 	3800 5350 3800 5200
 Wire Wire Line
-	4150 2900 5850 2900
-Wire Wire Line
 	8200 5200 8350 5200
 Wire Wire Line
 	8200 5700 8350 5700
@@ -442,9 +407,7 @@ Wire Wire Line
 Wire Wire Line
 	5150 5600 5500 5600
 Wire Wire Line
-	5050 5300 5500 5300
-Wire Wire Line
-	4500 5300 4750 5300
+	4500 5300 5500 5300
 Wire Wire Line
 	4150 3200 4150 3500
 Wire Wire Line
@@ -488,9 +451,7 @@ Connection ~ 6350 2250
 Wire Wire Line
 	8900 2250 8900 2450
 Wire Wire Line
-	8900 3700 8900 3350
-Wire Wire Line
-	8900 3050 8900 2750
+	8900 2750 8900 3700
 Wire Wire Line
 	1500 2250 8900 2250
 Wire Wire Line
@@ -498,8 +459,6 @@ Wire Wire Line
 Wire Wire Line
 	1700 2250 1700 2600
 Connection ~ 1700 2250
-Wire Wire Line
-	1700 2700 1700 3800
 Wire Wire Line
 	2450 3350 2450 3200
 Wire Wire Line
@@ -532,14 +491,6 @@ Wire Wire Line
 Wire Wire Line
 	8200 3200 8300 3200
 Wire Wire Line
-	5100 5300 5100 5450
-Wire Wire Line
-	5100 5450 4700 5450
-Wire Wire Line
-	4700 5450 4700 5300
-Connection ~ 4700 5300
-Connection ~ 5100 5300
-Wire Wire Line
 	6800 3250 6800 2900
 Connection ~ 6800 2900
 Wire Wire Line
@@ -548,4 +499,47 @@ Wire Wire Line
 	6650 2900 6650 3100
 Wire Wire Line
 	6650 3100 6550 3100
+$Comp
+L CONN_01X01 J1
+U 1 1 59C40CAD
+P 1500 2600
+F 0 "J1" H 1500 2700 50  0000 C CNN
+F 1 "CONN_01X01" V 1600 2600 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch2.54mm" H 1500 2600 50  0001 C CNN
+F 3 "" H 1500 2600 50  0001 C CNN
+	1    1500 2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_01X01 J2
+U 1 1 59C40D58
+P 1500 3200
+F 0 "J2" H 1500 3300 50  0000 C CNN
+F 1 "CONN_01X01" V 1600 3200 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch2.54mm" H 1500 3200 50  0001 C CNN
+F 3 "" H 1500 3200 50  0001 C CNN
+	1    1500 3200
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1700 3800 1700 3200
+Wire Wire Line
+	4150 2900 5550 2900
+$Comp
+L CONN_01X03 SW1
+U 1 1 59C4106F
+P 5650 3650
+F 0 "SW1" H 5650 3850 50  0000 C CNN
+F 1 "CONN_01X03" V 5750 3650 50  0000 C CNN
+F 2 "SMD_Packages:Conn-3" H 5650 3650 50  0001 C CNN
+F 3 "" H 5650 3650 50  0001 C CNN
+	1    5650 3650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5550 2900 5550 3450
+Wire Wire Line
+	5650 3450 5650 2900
+Wire Wire Line
+	5650 2900 5850 2900
 $EndSCHEMATC
