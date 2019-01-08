@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name lipocharge-rescue)(type Legacy)(uri ${KIPRJMOD}/lipocharge-rescue.lib)(options "")(descr ""))
+  (lib (name mcp73831)(type Legacy)(uri ${KIPRJMOD}/mcp73831.lib)(options "")(descr ""))
+  (lib (name goodwatch21)(type Legacy)(uri ${KIPRJMOD}/goodwatch/goodwatch21.lib)(options "")(descr ""))
+  (lib (name ncp170)(type Legacy)(uri ${KIPRJMOD}/ncp170.lib)(options "")(descr ""))
+)
