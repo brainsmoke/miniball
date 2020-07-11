@@ -21,13 +21,13 @@ all: $(TARGET) $(ELFTARGET)
 	avr-objcopy -j .text -j .data -O ihex $< $@
 
 %.elf: %.c $(COMMON)
-	avr-gcc -mmcu=$(MCU) -O -o $@ $^
+	avr-gcc -mmcu=$(MCU) -O -o $@ $^ -Wall
 
 %.o: %.S
 	avr-gcc -mmcu=$(MCU) -c -o $@ $< 
 
 %.o: %.c
-	avr-gcc -O -mmcu=$(MCU) -c -o $@ $<
+	avr-gcc -O -mmcu=$(MCU) -c -o $@ $< -Wall
 
 flash: $(TARGET)
 	avrdude -v -c usbtiny -pt85 -U flash:w:$(TARGET)
