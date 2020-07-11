@@ -9,6 +9,7 @@ extern uint32_t dmesg_magic;
 //! Index within that buffer.
 extern uint16_t dmesg_index;
 
+extern char *dmesg_buffer;
 
 //! Clears the dmesg buffer.
 void dmesg_clear();

@@ -24,6 +24,7 @@
 //#include "rng.h"
 #include "ws2812.h"
 #include "rgbwaves.h"
+#include "packet.h"
 
 static int q=0;
 
@@ -45,6 +46,23 @@ void frame_clear(uint8_t *fb)
 	uint16_t i=0;
 	for (i=0; i<N_BYTES; i++)
 		fb[i] = 0;
+}
+
+//! Provide an incoming packet.
+void app_packetrx(uint8_t *packet, int len)
+{
+	char *p = "Incoming Packet\n";
+	for ( ; *p ; p++ )
+		uart_tx(*p);
+
+	int i;
+	for (i=0 ; i<len ; i++ )
+	{
+		uart_tx(' ');
+		uart_tx("0123456789ABCDEF"[(packet[i]>>4)&15] );
+		uart_tx("0123456789ABCDEF"[packet[i]&15] );
+	}
+	uart_tx('\n');
 }
 
 
